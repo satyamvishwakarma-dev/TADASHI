@@ -3,8 +3,12 @@
     padding: 0;
 }
 .login-box {
-    background-image: url("login_image.jpeg");
+    background-image: url("login_image.png");
     background-size: cover;
-    height: 500px;
+    height: 610px;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
 }
