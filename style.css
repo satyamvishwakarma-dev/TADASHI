@@ -1,0 +1,11 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.login-box {
+
+    background-image: url("login_image.png");
+    background-size: cover;
+    height: 500px;
+    width: 100%;
+}
