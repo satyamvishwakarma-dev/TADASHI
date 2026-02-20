@@ -1,7 +1,12 @@
 from google import genai
-clint = genai.Client(api_key="AIzaSyCnpezmQduXKB0LsUHROq4LnpS0")
+import os
+from dotenv import load_dotenv
 
-prompt = input("Enter the prompt: ")
+load_dotenv()
+
+clint = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
+
+prompt = input("Enter the prompt -> ")
 resource = clint.models.generate_content(model="gemini-2.5-flash", contents=prompt)
 
 
