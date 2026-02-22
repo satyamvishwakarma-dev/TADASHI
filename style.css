@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 * {
     margin: 0;
     padding: 0;
@@ -9,3 +10,21 @@
     width: 100%;
 
 }
+=======
+.title {
+    color: #532222;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 2rem;   
+}
+.subtitle {
+    color: #532222;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 2rem;   
+}
+>>>>>>> f0aae0bf4518b6b0e64517c8501e030df332893e
