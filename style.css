@@ -5,9 +5,10 @@ body, html {
 }
 
 body {
-  background-image: url('login_image.png'); /* The path to your image file */
-  background-position: center;             /* Centers the image in the viewport */
-  background-repeat: no-repeat;            /* Prevents the image from tiling */
-  background-size: cover;                  /* Scales the image to cover the entire container */
-  background-attachment: fixed;            /* Keeps the image fixed in the background during scrolling (optional) */
+  background-image: url('background.png');
+  /* Stretches the image to exactly 100% width and 100% height */
+  background-size: 100% 100%; 
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  margin: 0;
 }
