@@ -27,12 +27,7 @@ body {
     width: 380px;
     text-align: center;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    transition: all 0.4s ease;
-}
-
-.login-box:hover {
-    box-shadow: 0 0 25px rgba(59, 130, 246, 0.4); /* Blue glow */
-    border: 1px solid rgba(59, 130, 246, 0.5);
+    transition: all 0.4s ease; 
 }
 
 .logo-container {
@@ -62,6 +57,39 @@ body {
     font-size: 12px;
     color: #b0b0b0;
     margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* The spotlight glow */
+.login-box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Creates a soft white/blue circle at the mouse position */
+    background: radial-gradient(
+        250px circle at var(--mouse-x) var(--mouse-y), 
+        rgba(255, 255, 255, 0.1),
+        transparent 50%
+    );
+    pointer-events: none; /* Lets you click through the glow */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+/* Show the glow when hovering */
+.login-box:hover::before {
+    opacity: 1;
+}
+
+/* Keeps your inputs and buttons above the glow */
+.login-box > * {
+    position: relative;
+    z-index: 2;
 }
 
 .input-group {
