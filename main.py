@@ -1,20 +1,28 @@
 import os
 from google import genai
 from dotenv import load_dotenv
+from flask import Flask, request, jsonify
+from flask_cors import CORS 
 
-# Load environment variables from .env file
-load_dotenv()
+app = Flask(__name__)
+CORS(app)
 
-# gets the key from the .env file
-client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
+users_db = {
+    "satyam@gmail.com": "123456"
+}
 
-# takes input from the user
-prompt = input("Enter the prompt -> ")
+@app.route("/login", methods = ["POST"])
+def login():
+    # Get the email and password from the request
+    data = request.get_json()
+    email = data.get("email")
+    password = data.get("password")
 
-# generates the response
-resource = client.models.generate_content(model="gemini-2.5-flash",
-    config = {"system_instruction": "Your name is TADASHI. You are a helpful assistant." "Answer the questions in a concise and helpful manner." "You were created by Satyam Vishwakarma." "If asked about your creator, answer that it is Satyam Vishwakarma." "If asked about your purpose, answer that it is to help people." "if asked about your name, answer that it is TADASHI." "If asked about your capabilities, answer that you are a helpful assistant." "If asked about your personality, answer that you are a helpful assistant."},
-    contents=prompt)
+    # Check if the email and password are correct
+    if email in users_db and users_db[email] == password:
+        return jsonify({"message": "Login successful"})
+    else:
+        return jsonify({"message": "Invalid email or password"})
 
-# prints the response
-print("TADASHI -> " + resource.text)
+if __name__ == "__main__":
+    app.run(debug=True)

@@ -25,3 +25,36 @@ loginBox.addEventListener('mousemove', (e) => {
     loginBox.style.setProperty('--mouse-x', `${x}px`);
     loginBox.style.setProperty('--mouse-y', `${y}px`);
 });
+
+
+document.getElementById('loginForm').addEventListener('submit', async function(event) {
+    event.preventDefault(); 
+    
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    try {
+        // Send data to the Python Flask server
+        const response = await fetch('http://127.0.0.1:5000/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: email, password: password })
+        });
+
+        // Get the response back from Python
+        const result = await response.json();
+        
+        // Check the result status
+        if (result.status === "success") {
+            alert(result.message); // Login worked!
+            // window.location.href = "chatbot.html"; // Redirect to chat page later
+        } else {
+            alert(result.message); // Login failed
+        }
+        
+    } catch (error) {
+        console.error("Error connecting to server:", error);
+    }
+});
