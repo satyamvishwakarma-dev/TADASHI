@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TADASHI Chat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+    <video autoplay loop muted playsinline id="bg-video">
+        <source src="background-video.mp4" type="video/mp4">
+    </video>
+    <header class="chat-header">
+        <div class="logo">
+            <i class="fa-solid fa-robot"></i> TADASHI
+        </div>
+        <div class="header-actions">
+            <button class="new-chat-btn"><i class="fa-solid fa-plus"></i> New Chat</button>
+            <div class="user-profile"><i class="fa-solid fa-user"></i></div>
+        </div>
+    </header>
+
+    <main class="chat-main">
+        <div class="chat-container">
+            <div class="chat-box" id="chat-box">
+                <div class="message bot">
+                    <div class="avatar"><i class="fa-solid fa-robot"></i></div>
+                    <div class="bubble">Hello! How can I assist you today?</div>
+                </div>
+            </div>
+
+            <div class="input-area">
+                <input type="text" id="user-input" placeholder="Type a message...">
+                <button class="icon-btn"><i class="fa-solid fa-paperclip"></i></button>
+                <button class="icon-btn"><i class="fa-solid fa-microphone"></i></button>
+                <button class="send-btn" id="send-btn">Send</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="chat.js"></script>
+</body>
+</html>

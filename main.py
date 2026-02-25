@@ -1,28 +1,56 @@
 import os
-from google import genai
-from dotenv import load_dotenv
 from flask import Flask, request, jsonify
-from flask_cors import CORS 
+from flask_cors import CORS
+from dotenv import load_dotenv
+from google import genai
+from google.genai import types # Import types for configuration
+
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 
+api_key = os.getenv("GEMINI_API_KEY")
+client = genai.Client(api_key=api_key) 
+
 users_db = {
-    "satyam@gmail.com": "123456"
+    "admin@tadashi.com": "password123"
 }
 
-@app.route("/login", methods = ["POST"])
+@app.route('/login', methods=['POST'])
 def login():
-    # Get the email and password from the request
     data = request.get_json()
-    email = data.get("email")
-    password = data.get("password")
+    email = data.get('email')
+    password = data.get('password')
 
-    # Check if the email and password are correct
     if email in users_db and users_db[email] == password:
-        return jsonify({"message": "Login successful"})
+        return jsonify({"status": "success"})
     else:
-        return jsonify({"message": "Invalid email or password"})
+        return jsonify({"status": "error", "message": "Invalid email or password."})
 
-if __name__ == "__main__":
+@app.route('/chat', methods=['POST'])
+def chat():
+    data = request.get_json()
+    user_message = data.get('message')
+
+    try:
+        # Add system configurations here
+        response = client.models.generate_content(
+            model='gemini-2.5-flash', 
+            contents=user_message,
+            config=types.GenerateContentConfig(
+                system_instruction=(
+                    "You are TADASHI, a helpful AI assistant. "
+                    "Always provide short, concise responses. "
+                    "Use simple language and avoid technical jargon."
+                ),
+                temperature=0.7 # Optional: Controls how creative the bot is (0.0 to 2.0)
+            )
+        )
+        
+        return jsonify({"reply": response.text})
+    except Exception as e:
+        return jsonify({"reply": f"API Error: {str(e)}"}), 500
+
+if __name__ == '__main__':
     app.run(debug=True)
