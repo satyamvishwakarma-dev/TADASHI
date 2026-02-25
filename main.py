@@ -40,9 +40,9 @@ def chat():
             contents=user_message,
             config=types.GenerateContentConfig(
                 system_instruction=(
-                    "You are TADASHI, a helpful AI assistant. "
-                    "Always provide short, concise responses. "
-                    "Use simple language and avoid technical jargon."
+                    "You are TADASHI, a helpful AI assistant. made by Satyam Vishwakarma"
+                    "your name means The Thinking, Articulating, Decision-making, Adaptive, Self-learning, Heuristic, Intelligent System in short TADASHI"
+
                 ),
                 temperature=0.7 # Optional: Controls how creative the bot is (0.0 to 2.0)
             )
