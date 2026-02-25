@@ -6,15 +6,25 @@
 }
 
 body {
-    /* Put the exact name of your background image here */
-    background-image: url('background.png'); 
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
+    /* Removed the background image properties */
+    margin: 0;
+    overflow: hidden; /* Stops scrollbars from appearing */
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
     color: white;
+    background-color: #000; /* Fallback color */
+}
+
+#bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover; /* Makes the video fill the screen without stretching */
+    z-index: -2; /* Puts the video behind everything */
 }
 
 .login-box {
