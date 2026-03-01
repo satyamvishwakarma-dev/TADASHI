@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
 from google import genai
-from google.genai import types # Import types for configuration
+from google.genai import types
 
 load_dotenv()
 
@@ -17,8 +17,45 @@ users_db = {
     "admin@tadashi.com": "password123"
 }
 
+# 1. Create a chat session that stays open and remembers history
+chat_session = client.chats.create(
+    model='gemini-2.5-flash',
+    config=types.GenerateContentConfig(
+        system_instruction=(
+            "You are TADASHI, a helpful AI assistant. "
+            "Be polite and positve until not asked to be honest. "
+            "You are made by SATYAM VISHWAKARMA. "
+            "Your API is made by GOOGLE. "
+            "Always provide short, concise responses. "
+            "Use simple language."
+        ),
+        temperature=0.7
+    )
+)
+
+@app.route('/reset', methods=['POST'])
+def reset_chat():
+    global chat_session
+    # Overwrite the old session with a fresh one
+    chat_session = client.chats.create(
+        model='gemini-2.5-flash',
+        config=types.GenerateContentConfig(
+            system_instruction=(
+                "You are TADASHI, a helpful AI assistant. "
+            "Be polite and positve until not asked to be honest. "
+            "You are made by SATYAM VISHWAKARMA. "
+            "Your API is made by GOOGLE. "
+            "Always provide short, concise responses. "
+            "Use simple language."
+            ),
+            temperature=0.7
+        )
+    )
+    return jsonify({"status": "success"})
+
 @app.route('/login', methods=['POST'])
 def login():
+    # ... keep your existing login code exactly the same ...
     data = request.get_json()
     email = data.get('email')
     password = data.get('password')
@@ -34,19 +71,8 @@ def chat():
     user_message = data.get('message')
 
     try:
-        # Add system configurations here
-        response = client.models.generate_content(
-            model='gemini-2.5-flash', 
-            contents=user_message,
-            config=types.GenerateContentConfig(
-                system_instruction=(
-                    "You are TADASHI, a helpful AI assistant. made by Satyam Vishwakarma"
-                    "your name means The Thinking, Articulating, Decision-making, Adaptive, Self-learning, Heuristic, Intelligent System in short TADASHI"
-
-                ),
-                temperature=0.7 # Optional: Controls how creative the bot is (0.0 to 2.0)
-            )
-        )
+        # 2. Use send_message() on the chat session instead of creating new content
+        response = chat_session.send_message(user_message)
         
         return jsonify({"reply": response.text})
     except Exception as e:
