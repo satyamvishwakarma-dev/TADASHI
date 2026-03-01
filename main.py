@@ -79,4 +79,4 @@ def chat():
         return jsonify({"reply": f"API Error: {str(e)}"}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
