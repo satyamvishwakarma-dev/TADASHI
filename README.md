@@ -83,9 +83,3 @@ TADASHI/
 * GitHub: [satyamvishwakarma-dev](https://github.com/satyamvishwakarma-dev)
 * LinkedIn: [satyamvishwakarma-cse](https://www.linkedin.com/in/satyamvishwakarma-cse/)
 * X: [satyamv_dev](https://x.com/satyamv_dev)
-
-## 📝TADASHI v2.0 (Under Development)
-* Integrate SQLite or PostgreSQL to replace the dictionary-based login system.
-* Implement persistent user sessions and save past chat logs to a database.
-* Add Markdown parsing to the chat bubbles so TADASHI can output formatted code snippets.
-
